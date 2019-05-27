@@ -2,7 +2,7 @@
 
 require('dotenv').config();
 const express = require("express");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000; //can this be const or let since Heroku selects port?
 const app = express();
 
 app.use(express.static("public"));
