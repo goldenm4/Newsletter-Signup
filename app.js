@@ -50,7 +50,7 @@ app.post("/", function (req, res) {
 
     request(options, function (error, response, body) {
         if (error) {
-            console.log("request failed");
+            console.log("request posting to mailchimp failed");
             console.log(error);
             
             res.sendFile(__dirname + "/failure.html");
