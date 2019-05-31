@@ -34,7 +34,10 @@ app.post("/", function (req, res) {
 
     console.log(process.env.AUTHORIZATION_ID + " " + process.env.API_KEY);
 
+
     let subscribeURL = "https://" + process.env.DC + ".api.mailchimp.com/3.0/lists/" + process.env.AUDIENCE_ID;
+
+    console.log(subscribeURL);
 
     let options = {
         url: subscribeURL,
@@ -47,6 +50,9 @@ app.post("/", function (req, res) {
 
     request(options, function (error, response, body) {
         if (error) {
+            console.log("request failed");
+            console.log(error);
+            
             res.sendFile(__dirname + "/failure.html");
         } else {
             if (response.statusCode === 200) {
