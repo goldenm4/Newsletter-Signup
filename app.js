@@ -5,6 +5,8 @@ const express = require("express");
 const port = process.env.PORT || 3000; //can this be const or let since Heroku selects port?
 const app = express();
 
+app.set("view engine", "ejs");
+
 app.use(express.static("public"));
 
 const request = require("request");
@@ -52,11 +54,13 @@ app.post("/", function (req, res) {
         if (error) {
             console.log("request posting to mailchimp failed");
             console.log(error);
-            
-            res.sendFile(__dirname + "/failure.html");
+            res.render("response", { response: error });
+
+            //res.sendFile(__dirname + "/failure.html");
         } else {
             if (response.statusCode === 200) {
-                res.sendFile(__dirname + "/success.html");
+                res.render("response", { response: "yey" });
+                //res.sendFile(__dirname + "/success.html");
             } else {
                 res.sendFile(__dirname + "/failure.html");
             }
