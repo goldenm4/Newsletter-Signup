@@ -55,14 +55,14 @@ app.post("/", function (req, res) {
             console.log("request posting to mailchimp failed");
             console.log(error);
             res.render("response", { response: error });
-
             //res.sendFile(__dirname + "/failure.html");
         } else {
             if (response.statusCode === 200) {
                 res.render("response", { response: "yey" });
                 //res.sendFile(__dirname + "/success.html");
             } else {
-                res.sendFile(__dirname + "/failure.html");
+                res.render("response", { response: error });
+                //res.sendFile(__dirname + "/failure.html");
             }
         }
     });
