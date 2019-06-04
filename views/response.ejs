@@ -13,10 +13,10 @@
 <body>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4"><%= response %> </h1>
-            <p class="lead">Something went wrong - please try again.</p>
-            <form action="/failure" method="POST">
-                <button class="btn btn-lg btn-warning" type="submit">Try Again</button>
+            <h1 class="display-4"><%= shortResponse %> </h1>
+            <p class="lead"><%= detailedResponse %></p>
+            <form action="/" method="GET">
+                <button class="btn btn-lg btn-warning" type="submit"> <%= buttonResponse %></button>
             </form>
         </div>
     </div>

@@ -2,7 +2,7 @@
 
 require('dotenv').config();
 const express = require("express");
-const port = process.env.PORT || 3000; //can this be const or let since Heroku selects port?
+const port = process.env.PORT || 3000;
 const app = express();
 
 app.set("view engine", "ejs");
@@ -34,12 +34,7 @@ app.post("/", function (req, res) {
     };
     let jsonData = JSON.stringify(data);
 
-    console.log(process.env.AUTHORIZATION_ID + " " + process.env.API_KEY);
-
-
     let subscribeURL = "https://" + process.env.DC + ".api.mailchimp.com/3.0/lists/" + process.env.AUDIENCE_ID;
-
-    console.log(subscribeURL);
 
     let options = {
         url: subscribeURL,
@@ -54,23 +49,18 @@ app.post("/", function (req, res) {
         if (error) {
             console.log("request posting to mailchimp failed");
             console.log(error);
-            res.render("response", { response: error });
-            //res.sendFile(__dirname + "/failure.html");
+            res.render("response", { shortResponse: error, detailedResponse: "something went wrong", buttonResponse: "try again" });
         } else {
             if (response.statusCode === 200) {
-                res.render("response", { response: "yey" });
-                //res.sendFile(__dirname + "/success.html");
+                res.render("response", { shortResponse: "yey", detailedResponse: "your signup was complete!", buttonResponse: "add another" });
             } else {
-                res.render("response", { response: error });
-                //res.sendFile(__dirname + "/failure.html");
+                res.render("response", { shortResponse: error, detailedResponse: "something went wrong", buttonResponse: "try again" });
+                console.log("there was an error");
+                console.log(error);
             }
         }
     });
 
-});
-
-app.post("/failure", function (req, res) {
-    res.redirect("/");
 });
 
 app.listen(port, function () {
